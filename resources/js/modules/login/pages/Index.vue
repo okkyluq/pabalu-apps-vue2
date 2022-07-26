@@ -7,6 +7,13 @@
                 </div>
                 <div class="card-body">
                     <p class="login-box-msg">Login Untuk Menggunakan Aplikasi</p>
+
+                    <div class="alert alert-danger alert-dismissible" v-if="errors">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h5><i class="icon fas fa-ban"></i> Peringatan!</h5>
+                        {{ errors }}
+                    </div>
+
                     <form action="#" method="post" @submit.prevent="login">
                         <div class="input-group mb-3">
                             <input type="email" class="form-control" placeholder="Username" v-model="form.username">
@@ -43,6 +50,7 @@ export default {
     },
     data() {
         return {
+            errors: null,
             form: {
                 username: '',
                 password: ''
@@ -51,7 +59,22 @@ export default {
     },
     methods: {
         login(){
-            console.log(this.form)
+            let self = this;
+            this.errors = null;
+            this.$axios.post('login', {
+                username: this.form.username,
+                password: this.form.password,
+            })
+            .then(function(response){
+                console.log(response)
+            })
+            .catch(function(error){
+                let errors = error.response;
+                if(errors.status === 400){
+                    self.errors = errors.data.error;
+                    // console.log(errors.data.error)
+                }
+            });
         }
     },
 }
