@@ -1,0 +1,13 @@
+{
+    "name": "Satuan",
+    "alias": "satuan",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Satuan\\Providers\\SatuanServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

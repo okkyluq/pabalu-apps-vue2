@@ -9,7 +9,11 @@ export default {
         notification_user: false,
         menu_all: null,
     },
-    getters: {},
+    getters: {
+        getAllMenu(state){
+            return state.menu_all;
+        }
+    },
     mutations: {
         SET_LOADER(state, value){
             state.loader = value;
