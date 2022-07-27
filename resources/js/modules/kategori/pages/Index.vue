@@ -1,7 +1,9 @@
 <template>
     <LayoutsAdminVue>
         <section class="content-header text-right">
-            <button type="button" class="btn btn-success">
+            <button type="button" class="btn btn-success"
+                @click="$store.dispatch('KategoriStoreCreate/toggleSidebar', true)"
+            >
                 <i class="fa fa-plus-circle"></i>
                 Tambah Kategori
             </button>

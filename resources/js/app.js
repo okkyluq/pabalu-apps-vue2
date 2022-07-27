@@ -1,11 +1,15 @@
-import { createApp } from 'vue'
+import Vue from 'vue';
 import './bootstrap'
 import router from './router'
-import {store} from './store'
+import store from './store'
 import axios from './config/axios'
+import { BootstrapVue } from 'bootstrap-vue'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
-let app = createApp({});
-app.use(router);
-app.use(store);
-app.mount('#app');
-app.config.globalProperties.$axios = axios;
+Vue.prototype.$axios = axios;
+Vue.use(BootstrapVue)
+const app = new Vue({
+    el: '#app',
+    router,
+    store
+});

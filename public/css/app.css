@@ -1,3 +1,14 @@
+.card-flat {
+    border-radius: 0;
+    box-shadow: none !important;
+}
+
+.card-flat .card-header {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+
 /*!
  *   AdminLTE v3.2.0
  *   Author: Colorlib
