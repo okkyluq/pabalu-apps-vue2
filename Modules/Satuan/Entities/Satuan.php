@@ -2,17 +2,21 @@
 
 namespace Modules\Satuan\Entities;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 
 class Satuan extends Model
 {
-    use HasFactory;
+    use SoftDeletes;
+    protected $table = 'satuan';
+    protected $primaryKey = 'id';
+    protected $fillable = [
+        'satuan', 'keterangan', 'created_by'
+    ];
 
-    protected $fillable = [];
-
-    protected static function newFactory()
+    public function createdBy()
     {
-        return \Modules\Satuan\Database\factories\SatuanFactory::new();
+        return $this->belongsTo(User::class, 'created_by', 'id');
     }
 }

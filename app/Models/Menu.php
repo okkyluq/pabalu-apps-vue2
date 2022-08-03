@@ -35,7 +35,7 @@ class Menu extends Model
         return $this->hasMany('App\Models\Menu','parent_id','id') ;
     }
 
-    public function user()
+    public function createdBy()
     {
     	return $this->belongsTo('App\Models\User', 'created_by', 'id');
     }

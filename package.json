@@ -29,8 +29,12 @@
         "admin-lte": "3.2",
         "bootstrap-vue": "^2.22.0",
         "font-awesome-animation": "^1.1.1",
+        "vfa-picker": "^5.9.1",
         "vue-loader": "^15.9.8",
+        "vue-loading-overlay": "3.0",
+        "vue-multiselect": "^2.1.6",
         "vue-router": "^3.5.4",
+        "vue-sweetalert2": "^5.0.5",
         "vuex": "^3.6.2",
         "vuex-persistedstate": "^4.1.0"
     }

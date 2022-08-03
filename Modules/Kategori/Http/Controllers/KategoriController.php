@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Kategori\Entities\Kategori;
 use Modules\Kategori\Transformers\KategoriResource;
+use Modules\Kategori\Http\Requests\KategoriRequest;
 
 class KategoriController extends Controller
 {
@@ -15,9 +16,9 @@ class KategoriController extends Controller
         return KategoriResource::collection($kategori);
     }
 
-    public function store(Request $request)
+    public function store(KategoriRequest $request)
     {
-
+        return response()->json($request->all());
     }
 
     public function show($id)

@@ -18,7 +18,7 @@
                 </div>
                 <div class="card-body">
                     <table class="table table-hover table-bordered">
-                        <thead class="bg-dark">
+                        <thead class="bg-light">
                             <tr>
                                 <th width="10">No.</th>
                                 <th>Kategori</th>
@@ -40,7 +40,7 @@
                                         <button type="button" class="btn btn-sm btn-success">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </button>
-                                        <button type="button" class="btn btn-sm btn-danger">
+                                        <button type="button" class="btn btn-sm btn-danger" @click="deleteData(list.id)">
                                             <i class="fa-solid fa-trash-can"></i>
                                         </button>
                                     </div>
@@ -50,8 +50,14 @@
                     </table>
                 </div>
                 <div class="card-footer text-right">
-                    <Paginate :data="meta" @change="getListKategori"
-                    />
+                    <b-pagination
+                        :value="meta.current_page"
+                        :total-rows="meta.total"
+                        :per-page="meta.per_page"
+                        prev-text="Prev"
+                        next-text="Next"
+                        @change="getListKategori"
+                    ></b-pagination>
                 </div>
             </div>
         </section>
@@ -60,17 +66,24 @@
 </template>
 <script>
 import LayoutsAdminVue from '../../../layouts/LayoutsAdmin.vue'
-import Paginate from '../../../partials/Paginate.vue'
 import Create from './Create.vue';
 import { mapActions, mapState } from 'vuex'
 export default {
     components: {
-        LayoutsAdminVue, Create, Paginate
+        LayoutsAdminVue, Create
+    },
+    data() {
+        return {
+
+        }
     },
     methods: {
         ...mapActions('KategoriStoreIndex', {
             getListKategori : 'getListKategori'
-        })
+        }),
+        deleteData(id){
+            console.log(id)
+        }
     },
     computed: {
         ...mapState('KategoriStoreIndex', {

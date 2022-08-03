@@ -1,5 +1,5 @@
 <template>
-    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+    <ul class="nav nav-pills nav-sidebar flex-column">
         <li class="nav-item">
             <router-link class="nav-link" to="/">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -7,7 +7,7 @@
             </router-link>
         </li>
 
-        <li class="nav-item" v-for="(menu, index) in menu_all" :key="index" :class="{ 'menu-is-opening menu-open' : menu_open }" @click="open_menu(menu.childs.length)">
+        <!-- <li class="nav-item" v-for="(menu, index) in menu_all" :key="index" :class="{ 'menu-is-opening menu-open' : menu_open }" @click="open_menu(menu.childs.length)">
             <router-link class="nav-link" :to="menu.url" v-if="!menu.childs.length > 0">
                 <i class="nav-icon" :class="menu.icon"></i>
                 <p>{{ menu.text_menu }}</p>
@@ -27,7 +27,17 @@
                     </router-link>
                 </li>
             </ul>
-        </li>
+        </li> -->
+
+        <ChildNavigationMenu v-for="(menu, index) in menu_all" :key="index"
+            :slug="menu.SlugMenu"
+            :title=menu.text_menu
+            :icon=menu.icon
+            :single_menu="!menu.childs.length  > 0"
+            :link=menu.url
+            :childs="menu.childs"
+        />
+
 
         <li class="nav-item">
             <a href="#" class="nav-link" @click.prevent="logout">
@@ -48,7 +58,7 @@ export default {
     },
     data() {
         return {
-			menu_open: false
+			menu_open: false,
 		}
     },
     computed: {
@@ -90,6 +100,8 @@ export default {
         }
     },
     mounted(){
+
+
         let self = this;
         if(self.menu_all === null){
             this.$axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.AUTH.token}`;

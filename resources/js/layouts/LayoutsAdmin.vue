@@ -1,5 +1,5 @@
 <template>
-    <div class="hold-transition sidebar-mini">
+    <div class="hold-transition sidebar-mini" :class="{'sidebar-collapse' : !$store.state.UI.sidebar_active}">
         <div class="wrapper">
             <Navbar />
             <Aside />

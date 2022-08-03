@@ -4,22 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\API\RequestDataMenu;
+use App\Http\Requests\RequestDataMenu;
 use Spatie\Permission\Models\Permission;
 use App\Models\Menu;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use Spatie\Permission\Models\Role;
+use App\Http\Resources\MenuResource;
 
 class MenuController extends Controller
 {
 
     public function index(Request $request)
     {
-        $menu = Menu::with(['childs', 'user'])->orderBy('created_at', 'desc');
-        $menu = $menu->paginate(10);
-        return $menu->appends($request->all());
+        $menu = Menu::with(['childs', 'createdBy'])->orderBy('created_at', 'desc')->paginate(10);
+        return MenuResource::collection($menu);
     }
 
     public function store(RequestDataMenu $request)

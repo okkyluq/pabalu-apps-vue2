@@ -2,78 +2,111 @@
 
 namespace Modules\Satuan\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Routing\Controller;
+use Modules\Satuan\Entities\Satuan;
+use Modules\Satuan\Transformers\SatuanResource;
+use Modules\Satuan\Http\Requests\SatuanRequest;
 
 class SatuanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
     public function index()
     {
-        return view('satuan::index');
+        $satuan = Satuan::with(['createdBy'])->orderBy('created_at', 'desc')->paginate(10);
+        return SatuanResource::collection($satuan);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
+    public function store(SatuanRequest $request)
     {
-        return view('satuan::create');
+        try {
+            DB::beginTransaction();
+            $satuan = Satuan::create([
+                'satuan' => $request->satuan,
+                'keterangan' => $request->keterangan,
+                'created_by' => 1,
+            ]);
+            DB::commit();
+            return response()->json([
+                'status' => 'success',
+                'data' => new SatuanResource($satuan),
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json($e, 400);
+        }
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
     public function show($id)
     {
-        return view('satuan::show');
+        try {
+            DB::beginTransaction();
+            $satuan = Satuan::findOrFail($id);
+            DB::commit();
+            return response()->json([
+                'status' => 'success',
+                'data' => new SatuanResource($satuan),
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json($e, 400);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
+
     public function edit($id)
     {
-        return view('satuan::edit');
+        try {
+            DB::beginTransaction();
+            $satuan = Satuan::findOrFail($id);
+            DB::commit();
+            return response()->json([
+                'status' => 'success',
+                'data' => new SatuanResource($satuan),
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json($e, 400);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
+
+    public function update(SatuanRequest $request, $id)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $satuan = Satuan::findOrFail($id);
+            $satuan->satuan = $request->satuan;
+            $satuan->keterangan = $request->keterangan;
+            $satuan->save();
+            DB::commit();
+            return response()->json([
+                'status' => 'success',
+                'data' => new SatuanResource($satuan),
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json($e, 400);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
+
     public function destroy($id)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $satuan = Satuan::findOrFail($id);
+            $satuan->delete();
+            DB::commit();
+            return response()->json([
+                'status' => 'success',
+                'data' => new SatuanResource($satuan),
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json($e, 400);
+        }
     }
 }

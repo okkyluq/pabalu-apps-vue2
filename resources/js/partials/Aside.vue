@@ -1,5 +1,5 @@
 <template>
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <aside class="main-sidebar sidebar-dark-primary elevation-4" ref="formContainer">
         <a href="#" class="brand-link">
             <!-- <img src="pabalu.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> -->
             <span class="brand-text font-weight-light text-center">
@@ -28,6 +28,13 @@ import NavigationMenu from './NavigationMenu.vue'
 export default {
     components: {
         NavigationMenu
+    },
+    mounted(){
+        // this.$loading.show({
+        //     container: this.fullPage ? null : this.$refs.formContainer,
+        //     backgroundColor: '#000000b3',
+        //     color: '#fff'
+        // });
     }
 }
 </script>

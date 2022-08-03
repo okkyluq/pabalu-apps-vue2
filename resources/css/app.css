@@ -1,3 +1,4 @@
+/* card */
 .card-flat {
     border-radius: 0;
     box-shadow: none !important;
@@ -8,3 +9,27 @@
     border-top-right-radius: 0;
 }
 
+/* multiselect */
+.multiselect__placeholder {
+    color: #939ba2 !important;
+    font-size: 16px !important;
+    padding-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.multiselect__tags {
+    min-height: 38px !important;
+    border: 1px solid #ced4da !important;
+    border-radius: 0.25rem !important;
+    padding: 6px 40px 0 12px !important;
+}
+
+.multiselect__input, .multiselect__single {
+    padding: 0 0 0 0px !important;
+}
+
+/* card footer */
+.card-footer {
+    background-color: #fff !important;
+    border-top: 1px solid #00000021 !important;
+}
